@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Search, Sparkles, Clock, Mail, User } from "lucide-react";
+import { Search as SearchIcon, Sparkles, Clock, Mail, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -201,7 +201,7 @@ export default function Search() {
       {/* Search Section */}
       <div className="w-full max-w-2xl mb-16 animate-in slide-in-from-bottom duration-800">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
+          <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
           <Select value={selectedSearchOption} onValueChange={setSelectedSearchOption}>
             <SelectTrigger className="pl-12 pr-6 py-5 text-lg border-2 focus:scale-[1.02] transition-transform">
               <SelectValue placeholder="Choose what you're looking for..." />
@@ -300,7 +300,7 @@ export default function Search() {
           ) : (
             <Card className="text-center py-12">
               <CardContent>
-                <Search className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                <SearchIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-semibold mb-2">No portfolios found</h3>
                 <p className="text-muted-foreground">
                   Try adjusting your search terms or exploring different creative disciplines.
