@@ -231,7 +231,7 @@ export default function Home() {
       {/* Header */}
       <div className="text-center mb-12 animate-in fade-in duration-600">
         <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
-          Portfolio Explorer
+          Who's Peeking?
         </h1>
       </div>
 
@@ -252,16 +252,31 @@ export default function Home() {
             </SelectContent>
           </Select>
         </div>
+        
+        {/* Quick Filter Bars */}
+        <div className="flex flex-wrap justify-center gap-2 mt-4">
+          {searchOptions.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => setSelectedSearchOption(option.value)}
+              className={cn(
+                "px-4 py-2 text-sm rounded-full border transition-colors",
+                selectedSearchOption === option.value
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
+              )}
+              data-testid={`filter-${option.value}`}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {!showResults && (
         <>
           {/* Visitor Type Selection */}
           <div className="w-full max-w-5xl mb-8">
-            <h2 className="text-2xl font-semibold text-center mb-8 text-foreground">
-              How are you exploring today?
-            </h2>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {Object.keys(visitorTypeConfig).map((type) => 
                 renderVisitorCard(type as VisitorType)
