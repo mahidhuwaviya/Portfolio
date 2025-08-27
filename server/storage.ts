@@ -158,7 +158,11 @@ export class MemStorage implements IStorage {
 
   async createPortfolio(insertPortfolio: InsertPortfolio): Promise<Portfolio> {
     const id = randomUUID();
-    const portfolio: Portfolio = { ...insertPortfolio, id };
+    const portfolio: Portfolio = { 
+      ...insertPortfolio, 
+      id,
+      skills: insertPortfolio.skills || []
+    };
     this.portfolios.set(id, portfolio);
     return portfolio;
   }

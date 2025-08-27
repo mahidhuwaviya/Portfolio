@@ -1,15 +1,31 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Search, Eye, SearchCode, Bus, Sparkles, Clock, Mail } from "lucide-react";
+import { Search, Eye, SearchCode, Bus, Sparkles, Clock, Mail, ChevronDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import type { Portfolio, SearchFilters } from "@shared/schema";
 
 type VisitorType = "guest" | "stalker" | "recruiter";
+
+const searchOptions = [
+  { value: "about", label: "About Me" },
+  { value: "education", label: "Education" },
+  { value: "contacts", label: "Contacts" },
+  { value: "internships", label: "Internships" },
+  { value: "certificates", label: "Certificates" },
+  { value: "tech-stack", label: "Tech Stack" },
+];
 
 const visitorTypeConfig = {
   guest: {
@@ -43,35 +59,31 @@ const visitorTypeConfig = {
 
 export default function Home() {
   const [selectedVisitorType, setSelectedVisitorType] = useState<VisitorType | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSearchOption, setSelectedSearchOption] = useState<string>("");
   const [showResults, setShowResults] = useState(false);
   const [searchFilters, setSearchFilters] = useState<SearchFilters>({});
   const { toast } = useToast();
 
-  // Debounced search effect
+  // Search effect
   useEffect(() => {
-    if (!searchQuery.trim() && !selectedVisitorType) {
+    if (!selectedSearchOption && !selectedVisitorType) {
       setShowResults(false);
       return;
     }
 
-    const timer = setTimeout(() => {
-      const filters: SearchFilters = {
-        query: searchQuery.trim() || undefined,
-        visitorType: selectedVisitorType || undefined,
-      };
-      setSearchFilters(filters);
-      if (searchQuery.trim() || selectedVisitorType) {
-        setShowResults(true);
-      }
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchQuery, selectedVisitorType]);
+    const filters: SearchFilters = {
+      query: selectedSearchOption || undefined,
+      visitorType: selectedVisitorType || undefined,
+    };
+    setSearchFilters(filters);
+    if (selectedSearchOption || selectedVisitorType) {
+      setShowResults(true);
+    }
+  }, [selectedSearchOption, selectedVisitorType]);
 
   const { data: portfolios, isLoading } = useQuery<Portfolio[]>({
     queryKey: ["/api/portfolios/search", searchFilters],
-    enabled: showResults && (!!searchQuery.trim() || !!selectedVisitorType),
+    enabled: showResults && (!!selectedSearchOption || !!selectedVisitorType),
   });
 
   const handleVisitorTypeSelect = (type: VisitorType) => {
@@ -88,10 +100,10 @@ export default function Home() {
       return;
     }
 
-    if (!searchQuery.trim()) {
+    if (!selectedSearchOption) {
       toast({
         title: "Search Required", 
-        description: "Enter a search term to start exploring portfolios!",
+        description: "Please select a search option to start exploring portfolios!",
         variant: "destructive",
       });
       return;
@@ -214,7 +226,7 @@ export default function Home() {
                 variant="link" 
                 className="p-0 h-auto"
                 data-testid={`link-portfolio-${portfolio.id}`}
-                onClick={() => window.open(portfolio.portfolioUrl, '_blank')}
+                onClick={() => portfolio.portfolioUrl && window.open(portfolio.portfolioUrl, '_blank')}
               >
                 View Full Portfolio →
               </Button>
@@ -242,14 +254,18 @@ export default function Home() {
       <div className="w-full max-w-2xl mb-16 animate-in slide-in-from-bottom duration-800">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search portfolios, skills, or creative disciplines..."
-            className="pl-12 pr-6 py-5 text-lg border-2 focus:scale-[1.02] transition-transform"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            data-testid="input-search"
-          />
+          <Select value={selectedSearchOption} onValueChange={setSelectedSearchOption}>
+            <SelectTrigger className="pl-12 pr-6 py-5 text-lg border-2 focus:scale-[1.02] transition-transform">
+              <SelectValue placeholder="Choose what you're looking for..." />
+            </SelectTrigger>
+            <SelectContent>
+              {searchOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value} data-testid={`option-${option.value}`}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
@@ -312,7 +328,7 @@ export default function Home() {
               {selectedVisitorType && (
                 <p className="text-muted-foreground mt-1">
                   Exploring as {visitorTypeConfig[selectedVisitorType].title}
-                  {searchQuery && ` • "${searchQuery}"`}
+                  {selectedSearchOption && ` • "${searchOptions.find(opt => opt.value === selectedSearchOption)?.label}"`}
                 </p>
               )}
             </div>
@@ -320,7 +336,7 @@ export default function Home() {
               variant="outline"
               onClick={() => {
                 setShowResults(false);
-                setSearchQuery("");
+                setSelectedSearchOption("");
                 setSelectedVisitorType(null);
               }}
               data-testid="button-back-to-search"
