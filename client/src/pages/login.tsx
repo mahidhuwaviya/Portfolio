@@ -72,15 +72,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 bg-gradient-to-br from-background to-muted/20">
       
-      {/* Header */}
-      <div className="text-center mb-8 animate-in fade-in duration-600">
-        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-          Welcome Back
-        </h1>
-        <p className="text-muted-foreground">
-          Sign in to continue your creative journey
-        </p>
-      </div>
+      
 
       {/* Login Card */}
       <Card className="w-full max-w-md animate-in slide-in-from-bottom duration-800">
