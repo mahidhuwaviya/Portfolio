@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Search, Eye, SearchCode, Bus, Sparkles, Clock, Mail, ChevronDown } from "lucide-react";
+import { Search, Eye, SearchCode, Bus, Sparkles, Clock, Mail, ChevronDown, User } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -29,28 +29,22 @@ const searchOptions = [
 
 const visitorTypeConfig = {
   guest: {
-    icon: Eye,
+    icon: User,
     title: "Guest",
-    description: "Casual browsing, discovering inspiration and exploring creative work without specific goals.",
-    subtitle: "Perfect for inspiration seeking",
     gradient: "from-blue-100 to-blue-200",
     iconColor: "text-blue-600",
     statusMessage: "Great choice! You'll see curated highlights and trending work."
   },
   stalker: {
-    icon: SearchCode,
+    icon: User,
     title: "Stalker",
-    description: "Deep-diving into specific designers' work, following their creative journey and evolution.",
-    subtitle: "For detailed exploration",
     gradient: "from-purple-100 to-purple-200",
     iconColor: "text-purple-600",
     statusMessage: "Perfect! You'll get detailed project breakdowns and process insights."
   },
   recruiter: {
-    icon: Bus,
+    icon: User,
     title: "Recruiter",
-    description: "Actively seeking talent, evaluating skills and looking for the perfect team addition.",
-    subtitle: "Optimized for hiring",
     gradient: "from-green-100 to-green-200",
     iconColor: "text-green-600",
     statusMessage: "Excellent! You'll see skills, availability, and contact options."
@@ -128,26 +122,20 @@ export default function Home() {
       <Card
         key={type}
         className={cn(
-          "visitor-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-2",
+          "visitor-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-2 aspect-square",
           isSelected && "ring-2 ring-primary border-primary shadow-md -translate-y-0.5"
         )}
         onClick={() => handleVisitorTypeSelect(type)}
         data-testid={`card-visitor-${type}`}
       >
-        <CardContent className="p-8 text-center">
+        <CardContent className="p-6 h-full flex flex-col items-center justify-center text-center">
           <div className={cn(
-            "w-16 h-16 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-6",
+            "w-20 h-20 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4",
             config.gradient
           )}>
-            <Icon className={cn("text-2xl", config.iconColor)} />
+            <Icon className={cn("text-3xl", config.iconColor)} />
           </div>
-          <h3 className="text-xl font-semibold mb-3 text-foreground">{config.title}</h3>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-            {config.description}
-          </p>
-          <div className="text-xs text-muted-foreground">
-            {config.subtitle}
-          </div>
+          <h3 className="text-xl font-semibold text-foreground">{config.title}</h3>
         </CardContent>
       </Card>
     );
