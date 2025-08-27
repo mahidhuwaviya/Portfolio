@@ -88,9 +88,6 @@ export default function Login() {
           <CardTitle className="text-xl">
             Logging in as {config.title}
           </CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">
-            {config.description}
-          </p>
         </CardHeader>
         
         <CardContent>
