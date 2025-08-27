@@ -234,7 +234,7 @@ export default function Home() {
           Portfolio Explorer
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Discover exceptional creative talent. Choose your approach and dive into portfolios that inspire.
+          Find the perfect creative professional for your next project or simply browse amazing work.
         </p>
       </div>
 
