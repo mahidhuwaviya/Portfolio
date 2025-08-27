@@ -284,36 +284,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 items-center">
-            <Button 
-              size="lg"
-              onClick={handleStartExploring}
-              disabled={!selectedVisitorType}
-              data-testid="button-start-exploring"
-            >
-              Start Exploring
-            </Button>
-            <Button 
-              variant="ghost"
-              onClick={() => {
-                toast({
-                  title: "Advanced Filters",
-                  description: "Advanced filtering options will be available soon!",
-                });
-              }}
-              data-testid="button-advanced-filters"
-            >
-              Advanced Filters
-            </Button>
-          </div>
-
-          {/* Status Message */}
-          <div className="mt-8 text-center">
-            <p className="text-sm text-muted-foreground" data-testid="text-status">
-              {getStatusMessage()}
-            </p>
-          </div>
         </>
       )}
 
