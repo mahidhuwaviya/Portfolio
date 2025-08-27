@@ -233,9 +233,6 @@ export default function Home() {
         <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
           Portfolio Explorer
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Find the perfect creative professional for your next project or simply browse amazing work.
-        </p>
       </div>
 
       {/* Search Section */}
