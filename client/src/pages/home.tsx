@@ -1,10 +1,6 @@
 import { Mail, Github, Linkedin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useLocation } from "wouter";
 
 export default function Home() {
-  const [, setLocation] = useLocation();
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
       
@@ -13,14 +9,6 @@ export default function Home() {
         <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-8">
           Who's Peeking?
         </h1>
-        <Button 
-          onClick={() => setLocation('/search')}
-          size="lg"
-          className="text-lg px-8 py-6"
-          data-testid="button-start-search"
-        >
-          Start Exploring
-        </Button>
       </div>
       
       {/* Footer */}
