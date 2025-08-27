@@ -161,7 +161,7 @@ export class MemStorage implements IStorage {
     const portfolio: Portfolio = { 
       ...insertPortfolio, 
       id,
-      skills: insertPortfolio.skills || []
+      skills: Array.isArray(insertPortfolio.skills) ? insertPortfolio.skills : []
     };
     this.portfolios.set(id, portfolio);
     return portfolio;

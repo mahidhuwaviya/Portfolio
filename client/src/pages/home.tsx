@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Search as SearchIcon, Sparkles, Clock, Mail, User, Github, Linkedin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -51,11 +52,23 @@ const visitorTypeConfig = {
 };
 
 export default function Home() {
+  const [, setLocation] = useLocation();
   const [selectedVisitorType, setSelectedVisitorType] = useState<VisitorType | null>(null);
   const [selectedSearchOption, setSelectedSearchOption] = useState<string>("");
   const [showResults, setShowResults] = useState(false);
   const [searchFilters, setSearchFilters] = useState<SearchFilters>({});
   const { toast } = useToast();
+
+  // Check for visitor type from URL on component mount (returning from login)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const visitorTypeFromUrl = urlParams.get('visitorType') as VisitorType;
+    if (visitorTypeFromUrl && ['guest', 'stalker', 'recruiter'].includes(visitorTypeFromUrl)) {
+      setSelectedVisitorType(visitorTypeFromUrl);
+      // Clear the URL parameter
+      window.history.replaceState({}, '', '/');
+    }
+  }, []);
 
   // Search effect
   useEffect(() => {
@@ -80,7 +93,8 @@ export default function Home() {
   });
 
   const handleVisitorTypeSelect = (type: VisitorType) => {
-    setSelectedVisitorType(type);
+    // Navigate to login page with visitor type
+    setLocation(`/login?as=${type}`);
   };
 
   const renderVisitorCard = (type: VisitorType) => {
