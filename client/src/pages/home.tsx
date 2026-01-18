@@ -1,367 +1,186 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "wouter";
-import { Search as SearchIcon, Sparkles, Clock, Mail, User, Github, Linkedin } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect, useRef } from "react";
+import { Search as SearchIcon, Mail, Github, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import type { Portfolio, SearchFilters } from "@shared/schema";
+import { Input } from "@/components/ui/input";
 
-type VisitorType = "guest" | "stalker" | "recruiter";
-
-const searchOptions = [
-  { value: "about", label: "About Me" },
-  { value: "education", label: "Education" },
-  { value: "contacts", label: "Contacts" },
-  { value: "internships", label: "Internships" },
-  { value: "certificates", label: "Certificates" },
-  { value: "tech-stack", label: "Tech Stack" },
+const sections = [
+  { id: "about", label: "About Me" },
+  { id: "projects", label: "Projects" },
+  { id: "tech-stack", label: "Tech Stack" },
+  { id: "education", label: "Education" },
+  { id: "certificates", label: "Certificates" },
 ];
 
-const visitorTypeConfig = {
-  guest: {
-    icon: User,
-    title: "Guest",
-    gradient: "from-blue-100 to-blue-200",
-    iconColor: "text-blue-600",
-    statusMessage: "Great choice! You'll see curated highlights and trending work."
-  },
-  stalker: {
-    icon: User,
-    title: "Stalker",
-    gradient: "from-purple-100 to-purple-200",
-    iconColor: "text-purple-600",
-    statusMessage: "Perfect! You'll get detailed project breakdowns and process insights."
-  },
-  recruiter: {
-    icon: User,
-    title: "Recruiter",
-    gradient: "from-green-100 to-green-200",
-    iconColor: "text-green-600",
-    statusMessage: "Excellent! You'll see skills, availability, and contact options."
-  }
-};
-
 export default function Home() {
-  const [, setLocation] = useLocation();
-  const [selectedVisitorType, setSelectedVisitorType] = useState<VisitorType | null>(null);
-  const [selectedSearchOption, setSelectedSearchOption] = useState<string>("");
-  const [showResults, setShowResults] = useState(false);
-  const [searchFilters, setSearchFilters] = useState<SearchFilters>({});
-  const { toast } = useToast();
+  const [activeSection, setActiveSection] = useState("About Me");
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Check for visitor type from URL on component mount (returning from login)
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const visitorTypeFromUrl = urlParams.get('visitorType') as VisitorType;
-    if (visitorTypeFromUrl && ['guest', 'stalker', 'recruiter'].includes(visitorTypeFromUrl)) {
-      setSelectedVisitorType(visitorTypeFromUrl);
-      // Clear the URL parameter
-      window.history.replaceState({}, '', '/');
+    const handleScroll = () => {
+      if (!scrollContainerRef.current) return;
+      
+      const scrollPosition = scrollContainerRef.current.scrollTop + 100;
+      
+      for (const section of sections) {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section.label);
+            break;
+          }
+        }
+      }
+    };
+
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+      return () => container.removeEventListener("scroll", handleScroll);
     }
   }, []);
 
-  // Search effect
-  useEffect(() => {
-    if (!selectedSearchOption && !selectedVisitorType) {
-      setShowResults(false);
-      return;
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element && scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({
+        top: element.offsetTop - 20,
+        behavior: "smooth"
+      });
     }
-
-    const filters: SearchFilters = {
-      query: selectedSearchOption || undefined,
-      visitorType: selectedVisitorType || undefined,
-    };
-    setSearchFilters(filters);
-    if (selectedSearchOption || selectedVisitorType) {
-      setShowResults(true);
-    }
-  }, [selectedSearchOption, selectedVisitorType]);
-
-  const { data: portfolios, isLoading } = useQuery<Portfolio[]>({
-    queryKey: ["/api/portfolios/search", searchFilters],
-    enabled: showResults && (!!selectedSearchOption || !!selectedVisitorType),
-  });
-
-  const handleVisitorTypeSelect = (type: VisitorType) => {
-    // Navigate to login page with visitor type
-    setLocation(`/login?as=${type}`);
-  };
-
-  const renderVisitorCard = (type: VisitorType) => {
-    const config = visitorTypeConfig[type];
-    const Icon = config.icon;
-    const isSelected = selectedVisitorType === type;
-
-    return (
-      <Card
-        key={type}
-        className={cn(
-          "visitor-card cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-2 aspect-square",
-          isSelected && "ring-2 ring-primary border-primary shadow-md -translate-y-0.5"
-        )}
-        onClick={() => handleVisitorTypeSelect(type)}
-        data-testid={`card-visitor-${type}`}
-      >
-        <CardContent className="p-6 h-full flex flex-col items-center justify-center text-center">
-          <div className={cn(
-            "w-20 h-20 bg-gradient-to-br rounded-full flex items-center justify-center mx-auto mb-4",
-            config.gradient
-          )}>
-            <Icon className={cn("text-3xl", config.iconColor)} />
-          </div>
-          <h3 className="text-xl font-semibold text-foreground">{config.title}</h3>
-        </CardContent>
-      </Card>
-    );
-  };
-
-  const renderPortfolioCard = (portfolio: Portfolio) => {
-    return (
-      <Card key={portfolio.id} className="hover:shadow-md transition-shadow">
-        <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h3 className="font-semibold text-lg text-foreground mb-1" data-testid={`text-name-${portfolio.id}`}>
-                {portfolio.name}
-              </h3>
-              <p className="text-muted-foreground" data-testid={`text-title-${portfolio.id}`}>
-                {portfolio.title}
-              </p>
-            </div>
-            {portfolio.featured === "true" && (
-              <Badge variant="secondary" className="ml-2">
-                <Sparkles className="w-3 h-3 mr-1" />
-                Featured
-              </Badge>
-            )}
-          </div>
-
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2" data-testid={`text-description-${portfolio.id}`}>
-            {portfolio.description}
-          </p>
-
-          <div className="flex flex-wrap gap-1 mb-4">
-            {portfolio.skills.slice(0, 3).map((skill, index) => (
-              <Badge key={index} variant="outline" className="text-xs">
-                {skill}
-              </Badge>
-            ))}
-            {portfolio.skills.length > 3 && (
-              <Badge variant="outline" className="text-xs">
-                +{portfolio.skills.length - 3} more
-              </Badge>
-            )}
-          </div>
-
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center text-muted-foreground">
-              <Clock className="w-4 h-4 mr-1" />
-              {portfolio.experience}
-            </div>
-            
-            {selectedVisitorType === "recruiter" && (
-              <div className="flex items-center gap-2">
-                <Badge variant={portfolio.availability.toLowerCase().includes("available") ? "default" : "secondary"}>
-                  {portfolio.availability}
-                </Badge>
-                <Button 
-                  size="sm" 
-                  variant="outline"
-                  data-testid={`button-contact-${portfolio.id}`}
-                  onClick={() => {
-                    toast({
-                      title: "Contact Information",
-                      description: `Reach out to ${portfolio.name} at ${portfolio.contactEmail}`,
-                    });
-                  }}
-                >
-                  <Mail className="w-4 h-4 mr-1" />
-                  Contact
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {selectedVisitorType === "stalker" && portfolio.portfolioUrl && (
-            <div className="mt-4 pt-4 border-t">
-              <Button 
-                variant="link" 
-                className="p-0 h-auto"
-                data-testid={`link-portfolio-${portfolio.id}`}
-                onClick={() => portfolio.portfolioUrl && window.open(portfolio.portfolioUrl, '_blank')}
-              >
-                View Full Portfolio →
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-    );
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8">
-      
-      {/* Header */}
-      <div className="text-center mb-12 animate-in fade-in duration-600">
-        <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-8">
-          Who's Peeking?
-        </h1>
-      </div>
-      
-      {/* Search Section */}
-      <div className="w-full max-w-2xl mb-16 animate-in slide-in-from-bottom duration-800">
-        <div className="relative">
-          <SearchIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-          <Select value={selectedSearchOption} onValueChange={setSelectedSearchOption}>
-            <SelectTrigger className="pl-12 pr-6 py-5 text-lg border-2 focus:scale-[1.02] transition-transform">
-              <SelectValue placeholder="Choose what you're looking for..." />
-            </SelectTrigger>
-            <SelectContent>
-              {searchOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value} data-testid={`option-${option.value}`}>
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        
-        {/* Quick Filter Bars */}
-        <div className="flex flex-wrap justify-center gap-2 mt-4">
-          {searchOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setSelectedSearchOption(option.value)}
-              className={cn(
-                "px-4 py-2 text-sm rounded-full border transition-colors",
-                selectedSearchOption === option.value
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
-              )}
-              data-testid={`filter-${option.value}`}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {!showResults && (
-        <>
-          {/* Visitor Type Selection */}
-          <div className="w-full max-w-5xl mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {Object.keys(visitorTypeConfig).map((type) => 
-                renderVisitorCard(type as VisitorType)
-              )}
-            </div>
+    <div className="flex h-screen overflow-hidden bg-background">
+      {/* Left Sidebar (40%) */}
+      <aside className="w-[40%] flex flex-col border-r border-border bg-muted/30 p-8 relative">
+        {/* Top Header */}
+        <div className="absolute top-8 right-8 flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">Who's peeking?</span>
+          <div className="relative w-48">
+            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Input 
+              readOnly 
+              placeholder={activeSection}
+              className="pl-9 h-9 bg-background border-border text-sm"
+            />
           </div>
-        </>
-      )}
+        </div>
 
-      {/* Results Section */}
-      {showResults && (
-        <div className="w-full max-w-6xl animate-in fade-in duration-500">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-semibold text-foreground">
-                Portfolio Results
-              </h2>
-              {selectedVisitorType && (
-                <p className="text-muted-foreground mt-1">
-                  Exploring as {visitorTypeConfig[selectedVisitorType].title}
-                  {selectedSearchOption && ` • "${searchOptions.find(opt => opt.value === selectedSearchOption)?.label}"`}
-                </p>
-              )}
+        {/* Center Content */}
+        <div className="flex-1 flex flex-col justify-center items-center">
+          <div className="w-full max-w-sm space-y-6">
+            <div className="relative">
+              <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+              <Input 
+                readOnly 
+                placeholder={activeSection}
+                className="pl-12 h-12 bg-background border-2 text-lg font-medium"
+              />
             </div>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setShowResults(false);
-                setSelectedSearchOption("");
-                setSelectedVisitorType(null);
-              }}
-              data-testid="button-back-to-search"
-            >
-              ← Back to Search
-            </Button>
-          </div>
-
-          {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <Card key={i} className="animate-pulse">
-                  <CardContent className="p-6">
-                    <div className="h-6 bg-muted rounded mb-2"></div>
-                    <div className="h-4 bg-muted rounded mb-4 w-3/4"></div>
-                    <div className="h-12 bg-muted rounded mb-4"></div>
-                    <div className="flex gap-2">
-                      <div className="h-6 bg-muted rounded w-16"></div>
-                      <div className="h-6 bg-muted rounded w-20"></div>
-                    </div>
-                  </CardContent>
-                </Card>
+            
+            <div className="flex justify-between items-center w-full overflow-x-auto pb-2 gap-2">
+              {sections.map((section) => (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium rounded-full transition-all whitespace-nowrap border",
+                    activeSection === section.label
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-background text-muted-foreground border-border hover:border-primary hover:text-foreground"
+                  )}
+                >
+                  {section.label}
+                </button>
               ))}
             </div>
-          ) : portfolios && portfolios.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {portfolios.map(renderPortfolioCard)}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto pt-8 border-t border-border">
+          <h3 className="text-sm font-semibold mb-4 text-foreground uppercase tracking-wider text-center">Connect Me</h3>
+          <div className="flex justify-center items-center gap-6">
+            <a href="mailto:contact@example.com" className="p-3 rounded-full bg-background border border-border hover:bg-muted transition-colors">
+              <Mail className="w-5 h-5 text-foreground" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-background border border-border hover:bg-muted transition-colors">
+              <Linkedin className="w-5 h-5 text-foreground" />
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-background border border-border hover:bg-muted transition-colors">
+              <Github className="w-5 h-5 text-foreground" />
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      {/* Right Content (60%) */}
+      <main 
+        ref={scrollContainerRef}
+        className="w-[60%] overflow-y-auto scroll-smooth p-12 space-y-24 relative"
+      >
+        <section id="about" className="min-h-[40vh] flex flex-col justify-center">
+          <h2 className="text-4xl font-bold mb-6">About Me</h2>
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+            Passionate creative professional with a focus on building impactful digital experiences. 
+            I blend design thinking with technical expertise to solve complex problems.
+          </p>
+        </section>
+
+        <section id="projects" className="min-h-[60vh]">
+          <h2 className="text-4xl font-bold mb-8">Projects</h2>
+          <div className="grid grid-cols-1 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="group p-8 rounded-2xl border border-border bg-card hover:shadow-xl transition-all">
+                <div className="h-48 bg-muted rounded-xl mb-6"></div>
+                <h3 className="text-2xl font-semibold mb-2">Project Title {i}</h3>
+                <p className="text-muted-foreground mb-4">A brief description of the innovative solution and the impact it created.</p>
+                <div className="flex gap-2">
+                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">React</span>
+                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">Node.js</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="tech-stack" className="min-h-[40vh]">
+          <h2 className="text-4xl font-bold mb-8">Tech Stack</h2>
+          <div className="flex flex-wrap gap-4">
+            {["TypeScript", "React", "Node.js", "PostgreSQL", "Tailwind CSS", "Drizzle ORM", "Vite", "Express"].map((tech) => (
+              <div key={tech} className="px-6 py-3 rounded-xl border border-border bg-card font-medium">
+                {tech}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="education" className="min-h-[30vh]">
+          <h2 className="text-4xl font-bold mb-8">Education</h2>
+          <div className="space-y-6">
+            <div className="border-l-2 border-primary pl-6 py-2">
+              <h3 className="text-xl font-semibold">Master of Computer Science</h3>
+              <p className="text-muted-foreground">University of Excellence • 2020 - 2022</p>
             </div>
-          ) : (
-            <Card className="text-center py-12">
-              <CardContent>
-                <SearchIcon className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No portfolios found</h3>
-                <p className="text-muted-foreground">
-                  Try adjusting your search terms or exploring different creative disciplines.
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      )}
-      
-      {/* Footer */}
-      <footer className="w-full mt-16 py-6 border-t border-border">
-        <div className="flex justify-center items-center gap-6">
-          <a
-            href="mailto:contact@example.com"
-            className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-            data-testid="link-email"
-          >
-            <Mail className="w-5 h-5 text-muted-foreground" />
-          </a>
-          <a
-            href="https://linkedin.com/in/example"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-            data-testid="link-linkedin"
-          >
-            <Linkedin className="w-5 h-5 text-muted-foreground" />
-          </a>
-          <a
-            href="https://github.com/example"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-3 rounded-full bg-muted hover:bg-muted/80 transition-colors"
-            data-testid="link-github"
-          >
-            <Github className="w-5 h-5 text-muted-foreground" />
-          </a>
-        </div>
-      </footer>
+            <div className="border-l-2 border-border pl-6 py-2">
+              <h3 className="text-xl font-semibold">Bachelor of Design</h3>
+              <p className="text-muted-foreground">Design Institute • 2016 - 2020</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="certificates" className="min-h-[30vh] pb-24">
+          <h2 className="text-4xl font-bold mb-8">Certificates</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {["AWS Certified Developer", "Google UX Design", "Meta Front-End Developer", "Advanced React Patterns"].map((cert) => (
+              <div key={cert} className="p-4 rounded-lg bg-muted/50 text-sm font-medium">
+                {cert}
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
