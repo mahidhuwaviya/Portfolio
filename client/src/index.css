@@ -1,4 +1,5 @@
 @import "@fontsource/jetbrains-mono";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -41,16 +42,29 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    font-family: 'JetBrains Mono', monospace;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
     background-color: #0F0D0D;
     color: #87C9C1;
     line-height: 1.6;
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
   }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.nav-item {
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .visitor-card {

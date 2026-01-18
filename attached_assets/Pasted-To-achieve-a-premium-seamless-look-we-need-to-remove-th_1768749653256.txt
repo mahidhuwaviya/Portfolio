@@ -1,0 +1,46 @@
+To achieve a premium, seamless look, we need to remove the harsh vertical line between the two sections and use a "Layered" approach. By hiding the scrollbar and using subtle shadows, the site will feel like one fluid application.
+
+Here is the refined prompt for Replit AI to handle the mobile "Search-to-Menu" logic and the premium aesthetic.
+
+Replit AI Update Prompt
+"Context: Update my portfolio to a high-end, seamless 'Single Page' application look. Focus on mobile responsiveness and advanced UI effects.
+
+1. Seamless Layout & Visibility:
+
+Desktop (70:30): The left (content) and right (sidebar) should have the same background color (#0F0D0D) so it looks like one single page, not two columns.
+
+Scrollbar: Hide the scrollbar in the left section entirely (use scrollbar-width: none and ::-webkit-scrollbar { display: none; }).
+
+Sidebar Clean-up: Remove the search bar from the body of the right section. The only search bar is in the Header.
+
+2. Mobile Logic (Responsive Gadgets):
+
+Mobile View: On small screens, hide the Right Sidebar (30% section) by default.
+
+Search Trigger: Add a Search/Menu icon to the top right of the mobile header. When clicked, it should slide in the navigation buttons (About, Projects, etc.).
+
+Layout Shift: In this mobile menu view, ensure the navigation buttons shift from a row into a centered vertical column.
+
+3. Premium 'Shadow & Glow' Aesthetic:
+
+Active State Fix: Do not highlight the whole button box. Instead, apply a subtle outer glow (box-shadow) and a thin left-border in #87C9C1.
+
+Experience Highlight Fix: Ensure the Intersection Observer (Scroll-Spy) correctly identifies the #experience ID. If the click doesn't trigger the highlight, verify that the section's height is sufficient to trigger the observer.
+
+Glassmorphism: Use a very slight backdrop-blur on the fixed right header to make it feel premium.
+
+4. Dynamic Header Search:
+
+Keep the search bar small in the header.
+
+Dynamic Placeholder: The placeholder must change based on the active scroll section (e.g., Search in [Projects]...).
+
+5. Implementation Details:
+
+Background: #0F0D0D (Main)
+
+Text: #87C9C1 (Primary)
+
+Shadow/Active Color: #42421C (Use this for the soft glow around active buttons)
+
+Font: 'Inter' for body and 'JetBrains Mono' for the navigation items."
