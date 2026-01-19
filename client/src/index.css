@@ -41,14 +41,22 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', sans-serif;
     background-color: #0F0D0D;
     color: #87C9C1;
     line-height: 1.6;
+    cursor: url('/rat-cursor.svg') 2 2, auto;
   }
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 700;
   }
 }
@@ -57,6 +65,7 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -81,6 +90,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -92,6 +102,7 @@
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -106,3 +117,12 @@
   animation: slide-in-from-bottom 0.8s ease-out;
 }
 
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-200%); }
+  30% { transform: translateX(200%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-shimmer-sweep {
+  animation: shimmer-sweep 3s infinite linear;
+}
