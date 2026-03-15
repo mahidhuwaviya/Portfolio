@@ -7,7 +7,7 @@ import CyberBackground from "@/components/ui/CyberBackground";
 
 const sections = [
   { id: "about", label: "About" },
-  { id: "healthtrack", label: "Projects" },
+  { id: "projects", label: "Projects" },
   { id: "tech-stack", label: "Tech Stack" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
@@ -99,41 +99,52 @@ export default function Home() {
 
           {/* Social links inline in menu */}
           <div className="flex items-center gap-8 mt-12">
-            <a href="mailto:contact@example.com" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="Email">
+            <a href="mailto:mahi.dhuwaviya.04@gmail.com" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="Email">
               <Mail className="w-5 h-5 text-[#87C9C1]/70" />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/mahi-jain-b372022a6/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="LinkedIn">
               <Linkedin className="w-5 h-5 text-[#87C9C1]/70" />
             </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="GitHub">
+            <a href="https://github.com/mahidhuwaviya" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="GitHub">
               <Github className="w-5 h-5 text-[#87C9C1]/70" />
             </a>
           </div>
         </div>
       )}
 
+      {/* ── FIXED MOBILE TOP BAR (cat) ─────────────────────────── */}
+      <header className="fixed top-0 left-0 right-0 z-50 md:hidden flex items-center gap-3 px-5 py-3 bg-[#0F0D0D]/80 backdrop-blur-md border-b border-white/5">
+        <div className="w-10 h-10 relative flex-shrink-0">
+          <PeekingCat />
+        </div>
+        <div>
+          <p className="text-[#87C9C1]/40 text-[10px] nav-item uppercase tracking-widest leading-none">Portfolio</p>
+          <p className="text-[#87C9C1]/80 text-sm font-semibold leading-tight">Mahi Dhuwaviya</p>
+        </div>
+      </header>
+
       {/* Left Content (Main Section) */}
       <main
         ref={scrollContainerRef}
-        className="w-full md:w-[70%] overflow-y-auto no-scrollbar scroll-smooth px-5 py-6 md:p-16 space-y-20 md:space-y-32 relative z-10 pb-28 md:pb-16"
+        className="w-full md:w-[70%] overflow-y-auto no-scrollbar scroll-smooth px-5 pt-20 md:p-16 space-y-20 md:space-y-32 relative z-10 pb-28 md:pb-16"
       >
         {/* ── ABOUT ───────────────────────────────────────────────── */}
-        <section id="about" className="flex flex-col justify-start md:justify-center md:min-h-[60vh] pt-2 md:pt-0 relative z-20">
+        <section id="about" className="flex flex-col justify-center min-h-screen md:min-h-[60vh] relative z-20">
           <h2 className="text-[2.2rem] md:text-[4rem] font-bold mb-3 md:mb-4 text-[#87C9C1] leading-tight">
             Mahi Dhuwaviya
           </h2>
           <h3 className="text-lg md:text-2xl text-[#87C9C1] font-medium mb-5 md:mb-8">
-            Aspiring Backend Developer
+            Backend Developer
           </h3>
           <p className="text-base md:text-xl text-[#87C9C1]/80 leading-relaxed max-w-2xl mb-8 md:mb-12">
-            Passionate creative professional with a focus on building impactful digital experiences.
+            Passionate Backend Developer with a focus on building impactful digital experiences.
             I blend design thinking with technical expertise to solve complex problems.
           </p>
 
           {/* CTAs — stack full-width on mobile, inline on md+ */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <button
-              onClick={() => scrollToSection('healthtrack', 'Projects')}
+              onClick={() => scrollToSection('projects', 'Projects')}
               className="w-full sm:w-auto min-h-[52px] px-8 py-4 bg-[#87C9C1] text-[#0F0D0D] font-bold rounded-xl shadow-[0_0_20px_rgba(135,201,193,0.4)] relative overflow-hidden group touch-manipulation active:scale-[0.97] transition-all"
             >
               {/* shimmer sheen — only this inner element moves, not the button */}
@@ -141,7 +152,7 @@ export default function Home() {
               <span className="relative z-10">View Projects</span>
             </button>
             <a
-              href="mailto:contact@example.com"
+              href="mailto:mahi.dhuwaviya,04@gmail.com"
               className="w-full sm:w-auto min-h-[52px] px-8 py-4 border border-[#1C3342] text-[#87C9C1] font-medium rounded-xl hover:bg-[#87C9C1]/10 active:bg-[#87C9C1]/10 transition-all flex items-center justify-center touch-manipulation"
             >
               Get in Touch
@@ -154,82 +165,100 @@ export default function Home() {
           <h2 className="text-[2rem] md:text-[4rem] font-bold mb-6 md:mb-8 text-[#87C9C1]">Projects</h2>
           <div className="space-y-10 md:space-y-16">
 
-            <a href="https://health-tracker-app-frontend.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] hover:border-[#87C9C1]/20 transition-all duration-500 cursor-pointer"
-            >
-              <div className="group p-5 md:p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md mobile-card-press hover:border-[#87C9C1]/30 hover:shadow-[0_0_50px_-12px_rgba(135,201,193,0.3)] transition-all duration-500">
-                <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
-                  <img
-                    src="assets/images/HealthTracker.png"
-                    alt="Streaming Platform Clone"
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
-                  />
+            {/* ── Health Tracker ── */}
+            <div className="p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:border-[#87C9C1]/20 hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+              <p className="text-[#87C9C1]/30 text-xs nav-item uppercase tracking-widest mb-3">
+                ↗ tap image to visit project
+              </p>
+              <a
+                href="https://health-tracker-app-frontend.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 border border-[#87C9C1]/5 overflow-hidden relative cursor-pointer"
+              >
+                <img
+                  src="assets/images/HealthTracker.png"
+                  alt="Health Tracker App"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-[#87C9C1] text-xs nav-item px-3 py-1.5 rounded-full border border-[#87C9C1]/30 backdrop-blur-sm">
+                    Open Live Site ↗
+                  </span>
                 </div>
-                <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Health Tracker App,<br />(Live Now)</h3>
-                <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
-                  A comprehensive wellness platform designed to bridge the gap between nutrition and activity tracking.
-                  Integrated a third-party nutrition API to provide real-time data for meal logging, built dynamic workout tracking, and created a localized water intake monitor to help users stay on top of their daily goals.
-                  {/* A series of platform clones (Netflix, YouTube, Spotify) focusing on high-volume data integration. Features complex third-party API consumption including TMDB, Spotify Developer API, and YouTube Data API v3. */}
-                </p>
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  {["Java", "Spring Framework", "Spring Security", "React", "TypeScript", "Third-party APIs"].map(tag => (
-                    <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              </a>
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Health Tracker App <span className="text-sm font-normal text-[#87C9C1]/50">(Live)</span></h3>
+              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
+                A comprehensive wellness platform designed to bridge the gap between nutrition and activity tracking.
+                Integrated a third-party nutrition API to provide real-time data for meal logging, built dynamic workout tracking, and created a localized water intake monitor.
+              </p>
+              <div className="flex flex-wrap gap-2 md:gap-3">
+                {["Java", "Spring Framework", "Spring Security", "React", "TypeScript", "Third-party APIs"].map(tag => (
+                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                    {tag}
+                  </span>
+                ))}
               </div>
-            </a>
+            </div>
 
-            <a
-              href="https://github.com/mahidhuwaviya/Project1-FoodDelivery.git"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] hover:border-[#87C9C1]/20 transition-all duration-500 cursor-pointer"
-            >
-              <div className="group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
-                <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
-                  <img
-                    src="assets/images/foodDeliveryApp.png"
-                    alt="Food Delivery App"
-                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
-                  />
+            {/* ── Food Delivery ── */}
+            <div className="p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:border-[#87C9C1]/20 hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+              <p className="text-[#87C9C1]/30 text-xs nav-item uppercase tracking-widest mb-3">
+                ↗ tap image to visit project
+              </p>
+              <a
+                href="https://github.com/mahidhuwaviya/Project1-FoodDelivery.git"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 border border-[#87C9C1]/5 overflow-hidden relative cursor-pointer"
+              >
+                <img
+                  src="assets/images/foodDeliveryApp.png"
+                  alt="Food Delivery App"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-[#87C9C1] text-xs nav-item px-3 py-1.5 rounded-full border border-[#87C9C1]/30 backdrop-blur-sm">
+                    View on GitHub ↗
+                  </span>
                 </div>
-                <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Full-Stack Food Delivery</h3>
-                <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
-                  A comprehensive e-commerce solution featuring secure user authentication, RESTful API endpoints for CRUD operations, and integrated email services for password resets.
-                </p>
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  {["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"].map(tag => (
-                    <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              </a>
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Full-Stack Food Delivery</h3>
+              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
+                A comprehensive e-commerce solution featuring secure user authentication, RESTful API endpoints for CRUD operations, and integrated email services for password resets.
+              </p>
+              <div className="flex flex-wrap gap-2 md:gap-3">
+                {["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"].map(tag => (
+                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                    {tag}
+                  </span>
+                ))}
               </div>
-            </a>
+            </div>
 
-            <a
-              href="https://github.com/mahidhuwaviya/Project2-ChaptApp.git"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] hover:border-[#87C9C1]/20 transition-all duration-500 cursor-pointer"
-            >
-              <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
+            {/* ── Chat App ── */}
+            <div className="p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:border-[#87C9C1]/20 hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+              <p className="text-[#87C9C1]/30 text-xs nav-item uppercase tracking-widest mb-3">
+                ↗ tap image to visit project
+              </p>
+              <a
+                href="https://github.com/mahidhuwaviya/Project2-ChaptApp.git"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 border border-[#87C9C1]/5 overflow-hidden relative cursor-pointer"
+              >
                 <img
                   src="assets/images/ChatApp.png"
                   alt="Real-Time Chat App"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                 />
-              </div>
-              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1] flex items-center gap-2">
-                Real-Time Communication
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-              </h3>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-[#87C9C1] text-xs nav-item px-3 py-1.5 rounded-full border border-[#87C9C1]/30 backdrop-blur-sm">
+                    View on GitHub ↗
+                  </span>
+                </div>
+              </a>
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Real-Time Communication</h3>
               <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
                 Instant messaging platform utilizing bi-directional communication. Developed with a focus on responsive UI components and secure session management using Bcrypt and JWT.
               </p>
@@ -240,7 +269,7 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </a>
+            </div>
 
 
           </div>
