@@ -150,40 +150,86 @@ export default function Home() {
         </section>
 
         {/* ── PROJECTS ────────────────────────────────────────────── */}
-        <section id="healthtrack" className="min-h-[80vh]">
+        <section id="projects" className="min-h-[80vh]">
           <h2 className="text-[2rem] md:text-[4rem] font-bold mb-6 md:mb-8 text-[#87C9C1]">Projects</h2>
           <div className="space-y-10 md:space-y-16">
 
-            <div className="group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
-              <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
-                <img
-                  src="/assets/food_app_preview.png"
-                  alt="Food Delivery App"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
-                />
+            <a href="https://health-tracker-app-frontend.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] hover:border-[#87C9C1]/20 transition-all duration-500 cursor-pointer"
+            >
+              <div className="group p-5 md:p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md mobile-card-press hover:border-[#87C9C1]/30 hover:shadow-[0_0_50px_-12px_rgba(135,201,193,0.3)] transition-all duration-500">
+                <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
+                  <img
+                    src="assets/images/HealthTracker.png"
+                    alt="Streaming Platform Clone"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
+                  />
+                </div>
+                <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Health Tracker App,<br />(Live Now)</h3>
+                <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
+                  A comprehensive wellness platform designed to bridge the gap between nutrition and activity tracking.
+                  Integrated a third-party nutrition API to provide real-time data for meal logging, built dynamic workout tracking, and created a localized water intake monitor to help users stay on top of their daily goals.
+                  {/* A series of platform clones (Netflix, YouTube, Spotify) focusing on high-volume data integration. Features complex third-party API consumption including TMDB, Spotify Developer API, and YouTube Data API v3. */}
+                </p>
+                <div className="flex flex-wrap gap-2 md:gap-3">
+                  {["Java", "Spring Framework", "Spring Security", "React", "TypeScript", "Third-party APIs"].map(tag => (
+                    <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Full-Stack Food Delivery</h3>
-              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
-                A comprehensive e-commerce solution featuring secure user authentication, RESTful API endpoints for CRUD operations, and integrated email services for password resets.
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-3">
-                {["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"].map(tag => (
-                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+            </a>
 
-            <div className="group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+            <a
+              href="https://github.com/mahidhuwaviya/Project1-FoodDelivery.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] hover:border-[#87C9C1]/20 transition-all duration-500 cursor-pointer"
+            >
+              <div className="group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+                <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
+                  <img
+                    src="assets/images/foodDeliveryApp.png"
+                    alt="Food Delivery App"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
+                  />
+                </div>
+                <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Full-Stack Food Delivery</h3>
+                <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
+                  A comprehensive e-commerce solution featuring secure user authentication, RESTful API endpoints for CRUD operations, and integrated email services for password resets.
+                </p>
+                <div className="flex flex-wrap gap-2 md:gap-3">
+                  {["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"].map(tag => (
+                    <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="https://github.com/mahidhuwaviya/Project2-ChaptApp.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] hover:border-[#87C9C1]/20 transition-all duration-500 cursor-pointer"
+            >
               <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
                 <img
-                  src="/assets/chat_app_preview.png"
+                  src="assets/images/ChatApp.png"
                   alt="Real-Time Chat App"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                 />
               </div>
-              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Real-Time Communication</h3>
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1] flex items-center gap-2">
+                Real-Time Communication
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 opacity-40 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+              </h3>
               <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
                 Instant messaging platform utilizing bi-directional communication. Developed with a focus on responsive UI components and secure session management using Bcrypt and JWT.
               </p>
@@ -194,28 +240,9 @@ export default function Home() {
                   </span>
                 ))}
               </div>
-            </div>
+            </a>
 
-            <div className="group p-5 md:p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md mobile-card-press hover:border-[#87C9C1]/30 hover:shadow-[0_0_50px_-12px_rgba(135,201,193,0.3)] transition-all duration-500">
-              <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
-                <img
-                  src="/assets/streaming_app_preview.png"
-                  alt="Streaming Platform Clone"
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
-                />
-              </div>
-              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Media Ecosystems</h3>
-              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
-                A series of platform clones (Netflix, YouTube, Spotify) focusing on high-volume data integration. Features complex third-party API consumption including TMDB, Spotify Developer API, and YouTube Data API v3.
-              </p>
-              <div className="flex flex-wrap gap-2 md:gap-3">
-                {["TypeScript", "Redux Toolkit", "Tailwind CSS", "Firebase", "Third-party APIs"].map(tag => (
-                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+
           </div>
 
         </section>
@@ -224,7 +251,7 @@ export default function Home() {
         <section id="tech-stack" className="min-h-[60vh]">
           <h2 className="text-[2rem] md:text-[4rem] font-bold mb-8 md:mb-12 text-[#87C9C1]">Stack</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-            {["MernStack", "React", "Node.js", "Express.js", "MongoDB", "MySQL", "JavaScript", "Java", "SpringBoot", "Spring Framework", "Git", "GitHub"].map((tech) => (
+            {["Java", "SpringBoot", "Spring Framework", "Spring Security", "MernStack", "React", "Node.js", "Express.js", "JavaScript", "MongoDB", "MySQL", "Git", "GitHub"].map((tech) => (
               <div key={tech} className="min-h-[80px] md:aspect-square flex items-center justify-center rounded-2xl border border-white/5 bg-black/40 backdrop-blur-md font-bold text-[#87C9C1]/80 hover:text-[#87C9C1] hover:border-[#87C9C1]/30 active:scale-95 transition-all nav-item text-sm md:text-base text-center px-2 py-4 md:px-4 touch-manipulation">
                 {tech}
               </div>
