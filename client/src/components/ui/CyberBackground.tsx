@@ -12,10 +12,13 @@ export default function CyberBackground() {
         let width = window.innerWidth;
         let height = window.innerHeight;
 
+        const isMobile = width < 768;
+
+        // On mobile, use a static center glow (no mouse tracking needed on touch)
         let mouse = { x: width / 2, y: height / 2 };
 
-        // --- STARS ---
-        const starCount = 150;
+        // --- STARS --- (reduced on mobile for performance)
+        const starCount = isMobile ? 60 : 150;
         const stars: { x: number; y: number; size: number; speed: number }[] = [];
         for (let i = 0; i < starCount; i++) {
             stars.push({
@@ -27,9 +30,10 @@ export default function CyberBackground() {
         }
 
         // --- CODE RAIN ---
-        // Columns for matrix effect
+        // On mobile, use every 2nd column to reduce render calls
         const fontSize = 14;
-        const columns = Math.ceil(width / fontSize);
+        const columnStep = isMobile ? 2 : 1;
+        const columns = Math.ceil(width / (fontSize * columnStep));
         // drops[i] stores the current y-coordinate (row index) for column i
         const drops: number[] = [];
         for (let i = 0; i < columns; i++) {
@@ -65,10 +69,12 @@ export default function CyberBackground() {
             ctx.fillStyle = "#0F0D0D";
             ctx.fillRect(0, 0, width, height);
 
-            // --- 1. MOUSE RADIAL GRADIENT ---
-            // "Subtle teal/cyan glow should follow the cursor"
-            const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 400);
-            gradient.addColorStop(0, "rgba(135, 201, 193, 0.08)"); // Center cyan, very low opacity
+            // --- 1. RADIAL GRADIENT (mouse-follow on desktop, static center on mobile) ---
+            const glowX = isMobile ? width / 2 : mouse.x;
+            const glowY = isMobile ? height / 2 : mouse.y;
+            const glowRadius = isMobile ? 300 : 400;
+            const gradient = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, glowRadius);
+            gradient.addColorStop(0, "rgba(135, 201, 193, 0.06)"); // Center cyan, very low opacity
             gradient.addColorStop(1, "rgba(15, 13, 13, 0)"); // Fade to transparent
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, width, height);
@@ -92,7 +98,7 @@ export default function CyberBackground() {
             for (let i = 0; i < drops.length; i++) {
                 // Random character
                 const text = chars[Math.floor(Math.random() * chars.length)];
-                const x = i * fontSize;
+                const x = i * fontSize * columnStep;
                 const y = drops[i] * fontSize;
 
                 ctx.fillText(text, x, y);

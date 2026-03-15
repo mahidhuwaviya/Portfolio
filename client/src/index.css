@@ -118,11 +118,101 @@
 }
 
 @keyframes shimmer-sweep {
-  0% { transform: translateX(-200%); }
-  30% { transform: translateX(200%); }
-  100% { transform: translateX(200%); }
+  0% { transform: translateX(-50%); }
+  30% { transform: translateX(50%); }
+  100% { transform: translateX(50%); }
 }
 
 .animate-shimmer-sweep {
   animation: shimmer-sweep 3s infinite linear;
+}
+
+/* ── TOUCH UTILITY ─────────────────────────────────────────────── */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* ── MOBILE BOTTOM NAVIGATION BAR ─────────────────────────────── */
+.mobile-bottom-nav {
+  background: rgba(15, 13, 13, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(135, 201, 193, 0.08);
+  box-shadow: 0 -4px 40px rgba(135, 201, 193, 0.06), 0 -1px 0 rgba(135, 201, 193, 0.05);
+  animation: slide-up-nav 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slide-up-nav {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── MOBILE CARD PRESS EFFECT ──────────────────────────────────── */
+.mobile-card-press {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+@media (max-width: 767px) {
+  .mobile-card-press:active {
+    transform: scale(0.985);
+    box-shadow: 0 0 30px -8px rgba(135, 201, 193, 0.2);
+  }
+}
+
+/* ── MOBILE MENU OVERLAY ───────────────────────────────────────── */
+.mobile-menu-overlay {
+  animation: overlay-in 0.25s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(24px);
+  }
+}
+
+/* Staggered nav item entrance */
+.mobile-nav-item {
+  animation: nav-item-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes nav-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── MOBILE GLOBAL FIXES ───────────────────────────────────────── */
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Prevent text size adjustments on orientation change */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Disable custom cursor on touch devices */
+    cursor: auto;
+  }
+
+  /* Improve tap response on buttons */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
 }

@@ -62,47 +62,52 @@ export default function Home() {
         <CursorTrail />
       </div>
 
-      {/* Mobile Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end p-6 pointer-events-none md:hidden">
-        <div className="flex items-center gap-4 pointer-events-auto">
-          <div className="flex items-center gap-6 mr-2 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 shadow-[0_0_15px_rgba(135,201,193,0.1)]">
-            <a href="mailto:contact@example.com" className="group">
-              <Mail className="w-5 h-5 text-[#87C9C1]/70 transition-all hover:text-[#87C9C1]" />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group">
-              <Linkedin className="w-5 h-5 text-[#87C9C1]/70 transition-all hover:text-[#87C9C1]" />
-            </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group">
-              <Github className="w-5 h-5 text-[#87C9C1]/70 transition-all hover:text-[#87C9C1]" />
-            </a>
-          </div>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10 text-[#87C9C1] shadow-[0_0_15px_rgba(135,201,193,0.1)] active:scale-95 transition-all"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay (fullscreen) */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-black/80 backdrop-blur-xl flex flex-col items-center justify-center p-8 md:hidden animate-in fade-in duration-200">
-          <div className="flex flex-col gap-8 w-full max-w-xs text-center">
-            {sections.map((section) => (
+        <div className="fixed inset-0 z-[60] bg-black/85 backdrop-blur-xl flex flex-col items-center justify-center p-8 md:hidden mobile-menu-overlay">
+          {/* Close button top-right */}
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="absolute top-6 right-6 p-3 bg-white/5 rounded-full border border-white/10 text-[#87C9C1] active:scale-95 transition-all min-h-[48px] min-w-[48px] flex items-center justify-center"
+            aria-label="Close menu"
+          >
+            <X className="w-6 h-6" />
+          </button>
+
+          <div className="flex flex-col gap-6 w-full max-w-xs text-center">
+            {sections.map((section, i) => (
               <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id, section.label)}
                 className={cn(
-                  "text-3xl font-bold nav-item transition-all duration-300",
+                  "text-2xl font-bold nav-item transition-all duration-300 py-3 rounded-xl min-h-[56px] mobile-nav-item",
                   activeSection === section.label
-                    ? "text-white drop-shadow-[0_0_15px_rgba(135,201,193,1)] scale-110"
-                    : "text-[#87C9C1]/40 hover:text-[#87C9C1]"
+                    ? "text-white drop-shadow-[0_0_15px_rgba(135,201,193,1)] scale-105 bg-white/5"
+                    : "text-[#87C9C1]/50 hover:text-[#87C9C1]"
                 )}
+                style={{ animationDelay: `${i * 0.06}s` }}
               >
                 {section.label}
+                {activeSection === section.label && (
+                  <span className="block text-xs text-[#87C9C1]/40 font-normal mt-1 nav-item tracking-widest uppercase">
+                    current
+                  </span>
+                )}
               </button>
             ))}
+          </div>
+
+          {/* Social links inline in menu */}
+          <div className="flex items-center gap-8 mt-12">
+            <a href="mailto:contact@example.com" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="Email">
+              <Mail className="w-5 h-5 text-[#87C9C1]/70" />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="LinkedIn">
+              <Linkedin className="w-5 h-5 text-[#87C9C1]/70" />
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all" aria-label="GitHub">
+              <Github className="w-5 h-5 text-[#87C9C1]/70" />
+            </a>
           </div>
         </div>
       )}
@@ -110,107 +115,102 @@ export default function Home() {
       {/* Left Content (Main Section) */}
       <main
         ref={scrollContainerRef}
-        className="w-full md:w-[70%] overflow-y-auto no-scrollbar scroll-smooth p-8 md:p-16 space-y-32 relative z-10"
+        className="w-full md:w-[70%] overflow-y-auto no-scrollbar scroll-smooth px-5 py-6 md:p-16 space-y-20 md:space-y-32 relative z-10 pb-28 md:pb-16"
       >
-        <section id="about" className="min-h-[60vh] flex flex-col justify-center relative z-20">
-          <h2 className="text-[3rem] md:text-[4rem] font-bold mb-4 text-[#87C9C1]">Mahi Dhuwaviya</h2>
-          <h3 className="text-xl md:text-2xl text-[#87C9C1] font-medium mb-8">Aspiring Backend Developer</h3>
-          <p className="text-lg md:text-xl text-[#87C9C1]/80 leading-relaxed max-w-2xl mb-12">
+        {/* ── ABOUT ───────────────────────────────────────────────── */}
+        <section id="about" className="flex flex-col justify-start md:justify-center md:min-h-[60vh] pt-2 md:pt-0 relative z-20">
+          <h2 className="text-[2.2rem] md:text-[4rem] font-bold mb-3 md:mb-4 text-[#87C9C1] leading-tight">
+            Mahi Dhuwaviya
+          </h2>
+          <h3 className="text-lg md:text-2xl text-[#87C9C1] font-medium mb-5 md:mb-8">
+            Aspiring Backend Developer
+          </h3>
+          <p className="text-base md:text-xl text-[#87C9C1]/80 leading-relaxed max-w-2xl mb-8 md:mb-12">
             Passionate creative professional with a focus on building impactful digital experiences.
             I blend design thinking with technical expertise to solve complex problems.
           </p>
 
-          <div className="flex flex-wrap gap-6">
+          {/* CTAs — stack full-width on mobile, inline on md+ */}
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <button
               onClick={() => scrollToSection('healthtrack', 'Projects')}
-              className="px-8 py-4 bg-[#87C9C1] text-[#0F0D0D] font-bold rounded-xl shadow-[0_0_20px_rgba(135,201,193,0.4)] relative overflow-hidden group animate-shimmer-sweep"
+              className="w-full sm:w-auto min-h-[52px] px-8 py-4 bg-[#87C9C1] text-[#0F0D0D] font-bold rounded-xl shadow-[0_0_20px_rgba(135,201,193,0.4)] relative overflow-hidden group touch-manipulation active:scale-[0.97] transition-all"
             >
+              {/* shimmer sheen — only this inner element moves, not the button */}
+              <span className="absolute inset-0 animate-shimmer-sweep bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
               <span className="relative z-10">View Projects</span>
             </button>
             <a
               href="mailto:contact@example.com"
-              className="px-8 py-4 border border-[#1C3342] text-[#87C9C1] font-medium rounded-xl hover:bg-[#87C9C1]/10 transition-all"
+              className="w-full sm:w-auto min-h-[52px] px-8 py-4 border border-[#1C3342] text-[#87C9C1] font-medium rounded-xl hover:bg-[#87C9C1]/10 active:bg-[#87C9C1]/10 transition-all flex items-center justify-center touch-manipulation"
             >
               Get in Touch
             </a>
           </div>
         </section>
 
+        {/* ── PROJECTS ────────────────────────────────────────────── */}
         <section id="healthtrack" className="min-h-[80vh]">
-          <h2 className="text-[3rem] md:text-[4rem] font-bold mb-8 text-[#87C9C1]">Projects</h2>
-          <div className="space-y-16">
-            {/* <div className="group p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
-            <div className="h-64 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-8 flex items-center justify-center border border-[#87C9C1]/5">
-              <span className="text-[#87C9C1]/30 text-xl font-medium nav-item">HealthTrack Preview</span>
-            </div>
-            <h3 className="text-3xl font-bold mb-4 text-[#87C9C1]">Personalized Health Monitoring</h3>
-            <p className="text-[#87C9C1]/70 text-lg mb-8 leading-relaxed">An innovative solution for tracking fitness goals and vitals with real-time analytics.</p>
-            <div className="flex flex-wrap gap-3">
-              {["React Native", "Firebase", "HealthKit"].map(tag => (
-                <span key={tag} className="px-4 py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-sm font-medium border border-[#87C9C1]/10 nav-item">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div> */}
+          <h2 className="text-[2rem] md:text-[4rem] font-bold mb-6 md:mb-8 text-[#87C9C1]">Projects</h2>
+          <div className="space-y-10 md:space-y-16">
 
-            <div className="group p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
-              <div className="h-64 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
+            <div className="group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+              <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
                 <img
                   src="/assets/food_app_preview.png"
                   alt="Food Delivery App"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
                 />
               </div>
-              <h3 className="text-3xl font-bold mb-4 text-[#87C9C1]">Full-Stack Food Delivery</h3>
-              <p className="text-[#87C9C1]/70 text-lg mb-8 leading-relaxed">
-                A comprehensive e-commerce solution featuring secure user authentication, RESTful API endpoints for CRUD operations [cite: 29], and integrated email services for password resets[cite: 35].
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Full-Stack Food Delivery</h3>
+              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
+                A comprehensive e-commerce solution featuring secure user authentication, RESTful API endpoints for CRUD operations, and integrated email services for password resets.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {["React", "Node.js", "Express", "MongoDB", "JWT", "Cloudinary"].map(tag => (
-                  <span key={tag} className="px-4 py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="group p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
-              <div className="h-64 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
+            <div className="group p-5 md:p-8 rounded-3xl border border-[#1C3342] bg-[#0F0D0D] mobile-card-press hover:shadow-[0_0_50px_-12px_rgba(66,66,28,0.5)] transition-all duration-500">
+              <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
                 <img
                   src="/assets/chat_app_preview.png"
                   alt="Real-Time Chat App"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
                 />
               </div>
-              <h3 className="text-3xl font-bold mb-4 text-[#87C9C1]">Real-Time Communication</h3>
-              <p className="text-[#87C9C1]/70 text-lg mb-8 leading-relaxed">
-                Instant messaging platform utilizing bi-directional communication. Developed with a focus on responsive UI components and secure session management using Bcrypt and JWT[cite: 74, 78].
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Real-Time Communication</h3>
+              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
+                Instant messaging platform utilizing bi-directional communication. Developed with a focus on responsive UI components and secure session management using Bcrypt and JWT.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {["React", "Socket.io", "Node.js", "Express", "Bcrypt", "Mongoose"].map(tag => (
-                  <span key={tag} className="px-4 py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="group p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md hover:border-[#87C9C1]/30 hover:shadow-[0_0_50px_-12px_rgba(135,201,193,0.3)] transition-all duration-500">
-              <div className="h-64 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
+            <div className="group p-5 md:p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md mobile-card-press hover:border-[#87C9C1]/30 hover:shadow-[0_0_50px_-12px_rgba(135,201,193,0.3)] transition-all duration-500">
+              <div className="h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 flex items-center justify-center border border-[#87C9C1]/5 overflow-hidden relative">
                 <img
                   src="/assets/streaming_app_preview.png"
                   alt="Streaming Platform Clone"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-110 opacity-90 hover:opacity-100"
                 />
               </div>
-              <h3 className="text-3xl font-bold mb-4 text-[#87C9C1]">Media Ecosystems</h3>
-              <p className="text-[#87C9C1]/70 text-lg mb-8 leading-relaxed">
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Media Ecosystems</h3>
+              <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
                 A series of platform clones (Netflix, YouTube, Spotify) focusing on high-volume data integration. Features complex third-party API consumption including TMDB, Spotify Developer API, and YouTube Data API v3.
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {["TypeScript", "Redux Toolkit", "Tailwind CSS", "Firebase", "Third-party APIs"].map(tag => (
-                  <span key={tag} className="px-4 py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-sm font-medium border border-[#87C9C1]/10 nav-item">
+                  <span key={tag} className="px-3 md:px-4 py-1.5 md:py-2 bg-[#42421C]/20 text-[#87C9C1] rounded-full text-xs md:text-sm font-medium border border-[#87C9C1]/10 nav-item">
                     {tag}
                   </span>
                 ))}
@@ -220,74 +220,118 @@ export default function Home() {
 
         </section>
 
+        {/* ── TECH STACK ──────────────────────────────────────────── */}
         <section id="tech-stack" className="min-h-[60vh]">
-          <h2 className="text-[3rem] md:text-[4rem] font-bold mb-12 text-[#87C9C1]">Stack</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <h2 className="text-[2rem] md:text-[4rem] font-bold mb-8 md:mb-12 text-[#87C9C1]">Stack</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
             {["MernStack", "React", "Node.js", "Express.js", "MongoDB", "MySQL", "JavaScript", "Java", "SpringBoot", "Spring Framework", "Git", "GitHub"].map((tech) => (
-              <div key={tech} className="aspect-square flex items-center justify-center rounded-2xl border border-white/5 bg-black/40 backdrop-blur-md font-bold text-[#87C9C1]/80 hover:text-[#87C9C1] hover:border-[#87C9C1]/30 transition-all nav-item">
+              <div key={tech} className="min-h-[80px] md:aspect-square flex items-center justify-center rounded-2xl border border-white/5 bg-black/40 backdrop-blur-md font-bold text-[#87C9C1]/80 hover:text-[#87C9C1] hover:border-[#87C9C1]/30 active:scale-95 transition-all nav-item text-sm md:text-base text-center px-2 py-4 md:px-4 touch-manipulation">
                 {tech}
               </div>
             ))}
           </div>
         </section>
 
-        <section id="experience" className="min-h-[80vh] pb-32">
-          <h2 className="text-[3rem] md:text-[4rem] font-bold mb-12 text-[#87C9C1]">Experience</h2>
-          <div className="space-y-16">
-            {/* <div className="group relative pl-8 border-l-2 border-[#1C3342] hover:border-[#87C9C1] transition-all duration-500">
+        {/* ── EXPERIENCE ──────────────────────────────────────────── */}
+        <section id="experience" className="min-h-[60vh] pb-16 md:pb-32">
+          <h2 className="text-[2rem] md:text-[4rem] font-bold mb-8 md:mb-12 text-[#87C9C1]">Experience</h2>
+          <div className="space-y-10 md:space-y-16">
+            <div className="group relative pl-6 md:pl-8 border-l-2 border-white/10 hover:border-[#87C9C1] transition-all duration-500">
               <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
-              <h3 className="text-2xl font-bold text-[#87C9C1] mb-2">Senior Frontend Engineer</h3>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">Tech Innovations Inc. • 2022 - Present</p>
-              <p className="text-[#87C9C1]/70 leading-relaxed max-w-xl">Leading the frontend development of enterprise-scale applications using React and TypeScript.</p>
-            </div>             
-            <div className="group relative pl-8 border-l-2 border-[#1C3342] hover:border-[#87C9C1] transition-all duration-500">
-              <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
-              <h3 className="text-2xl font-bold text-[#87C9C1] mb-2">UI/UX Designer</h3>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">Creative Studio • 2020 - 2022</p>
-              <p className="text-[#87C9C1]/70 leading-relaxed max-w-xl">Focused on building intuitive interfaces and seamless user journeys for various digital products.</p>
-            </div> */}
-            <div className="group relative pl-8 border-l-2 border-white/10 hover:border-[#87C9C1] transition-all duration-500">
-              <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
-              <h3 className="text-2xl font-bold text-[#87C9C1] mb-2">Full Stack Web Development Intern</h3>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">
-                Edu-Versity(Powered By Wipro DICE ID)•Sep2024-Oct2024
+              <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2">Full Stack Web Development Intern</h3>
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">
+                Edu-Versity (Powered By Wipro DICE ID) • Sep 2024 – Oct 2024
               </p>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">Focus: MERN Stack •Remote</p>
-
-              <p className="text-[#87C9C1]/70 leading-relaxed max-w-xl">
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">Focus: MERN Stack • Remote</p>
+              <p className="text-[#87C9C1]/70 leading-relaxed text-sm md:text-base max-w-xl">
                 Developed and deployed full-stack projects using the MERN stack.
                 Engineered secure RESTful APIs and implemented authentication systems using JWT and Bcrypt
                 to ensure data protection and application scalability.
               </p>
             </div>
 
-            <div className="group relative pl-8 border-l-2 border-[#1C3342] hover:border-[#87C9C1] transition-all duration-500">
+            <div className="group relative pl-6 md:pl-8 border-l-2 border-[#1C3342] hover:border-[#87C9C1] transition-all duration-500">
               <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
-              <h3 className="text-2xl font-bold text-[#87C9C1] mb-2">Aspiring Java Backend Intern</h3>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">
-                YPSILON IT SOLUTIONS PRIVATE LIMITED  •Jun2025-Jan2025
+              <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2">Aspiring Java Backend Intern</h3>
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">
+                YPSILON IT SOLUTIONS PRIVATE LIMITED • Jun 2025 – Jan 2025
               </p>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">Focus: Java & Spring Framework • Indore</p>
-              <p className="text-[#87C9C1]/70 leading-relaxed max-w-xl">
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">Focus: Java & Spring Framework • Indore</p>
+              <p className="text-[#87C9C1]/70 leading-relaxed text-sm md:text-base max-w-xl">
                 Actively seeking a 6-month professional internship to apply expertise in Java backend development.
                 Dedicated to building scalable enterprise solutions and mastering the Spring ecosystem within a production environment.
               </p>
             </div>
           </div>
         </section>
-        <section id="education" className="min-h-[60vh] pb-32">
-          <h2 className="text-[3rem] md:text-[4rem] font-bold mb-12 text-[#87C9C1]">Education</h2>
-          <div className="space-y-12">
-            <div className="group p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md hover:border-[#87C9C1]/30 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-[#87C9C1] mb-2">Bachelor of Computer Application</h3>
-              <p className="text-[#87C9C1]/40 mb-4 nav-item uppercase tracking-widest text-sm">Computer Science • 2023 - 2026 (Present) • CGPA: 8.39/10</p>
-              <p className="text-[#87C9C1]/70 leading-relaxed">
+
+        {/* ── EDUCATION ───────────────────────────────────────────── */}
+        <section id="education" className="min-h-[40vh] pb-16 md:pb-32">
+          <h2 className="text-[2rem] md:text-[4rem] font-bold mb-8 md:mb-12 text-[#87C9C1]">Education</h2>
+          <div className="space-y-8 md:space-y-12">
+            <div className="group p-5 md:p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md hover:border-[#87C9C1]/30 active:scale-[0.99] transition-all duration-500">
+              <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2">Bachelor of Computer Application</h3>
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">
+                Computer Science • 2023 – 2026 (Present) • CGPA: 8.39/10
+              </p>
+              <p className="text-[#87C9C1]/70 leading-relaxed text-sm md:text-base">
                 Amity University Online
               </p>
             </div>
           </div>
         </section>
+
+        {/* Best-on-desktop note — mobile only */}
+        <p className="md:hidden text-center text-[#87C9C1]/20 text-xs nav-item pb-4 tracking-widest uppercase select-none">
+          ✦ Best experienced on a laptop ✦
+        </p>
       </main>
+
+      {/* ── BOTTOM NAVIGATION BAR — Mobile Only ─────────────────── */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between px-5 py-3 md:hidden mobile-bottom-nav">
+        {/* Social links */}
+        <div className="flex items-center gap-1">
+          <a
+            href="mailto:contact@example.com"
+            className="p-3 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center text-[#87C9C1]/60 hover:text-[#87C9C1] active:scale-95 active:bg-white/5 transition-all touch-manipulation"
+            aria-label="Email"
+          >
+            <Mail className="w-5 h-5" />
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center text-[#87C9C1]/60 hover:text-[#87C9C1] active:scale-95 active:bg-white/5 transition-all touch-manipulation"
+            aria-label="LinkedIn"
+          >
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-3 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center text-[#87C9C1]/60 hover:text-[#87C9C1] active:scale-95 active:bg-white/5 transition-all touch-manipulation"
+            aria-label="GitHub"
+          >
+            <Github className="w-5 h-5" />
+          </a>
+        </div>
+
+        {/* Active section indicator */}
+        <span className="text-[#87C9C1]/40 text-xs nav-item uppercase tracking-widest select-none">
+          {activeSection}
+        </span>
+
+        {/* Menu toggle */}
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-3 bg-[#87C9C1]/10 backdrop-blur-md rounded-full border border-[#87C9C1]/20 text-[#87C9C1] min-h-[48px] min-w-[48px] flex items-center justify-center active:scale-95 transition-all touch-manipulation shadow-[0_0_15px_rgba(135,201,193,0.15)]"
+          aria-label="Open navigation menu"
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </nav>
 
       {/* Right Sidebar (Navigation) - Desktop Only */}
       <aside className="hidden md:flex w-[30%] flex-col bg-black/20 backdrop-blur-md p-12 justify-between items-center relative z-20">
