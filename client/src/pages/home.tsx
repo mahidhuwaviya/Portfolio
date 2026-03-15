@@ -152,7 +152,7 @@ export default function Home() {
               <span className="relative z-10">View Projects</span>
             </button>
             <a
-              href="mailto:mahi.dhuwaviya,04@gmail.com"
+              href="mailto:mahi.dhuwaviya.04@gmail.com"
               className="w-full sm:w-auto min-h-[52px] px-8 py-4 border border-[#1C3342] text-[#87C9C1] font-medium rounded-xl hover:bg-[#87C9C1]/10 active:bg-[#87C9C1]/10 transition-all flex items-center justify-center touch-manipulation"
             >
               Get in Touch
@@ -348,14 +348,14 @@ export default function Home() {
         {/* Social links */}
         <div className="flex items-center gap-1">
           <a
-            href="mailto:contact@example.com"
+            href="mailto:mahi.dhuwaviya.04@gmail.com"
             className="p-3 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center text-[#87C9C1]/60 hover:text-[#87C9C1] active:scale-95 active:bg-white/5 transition-all touch-manipulation"
             aria-label="Email"
           >
             <Mail className="w-5 h-5" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/mahi-jain-b372022a6/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center text-[#87C9C1]/60 hover:text-[#87C9C1] active:scale-95 active:bg-white/5 transition-all touch-manipulation"
@@ -364,7 +364,7 @@ export default function Home() {
             <Linkedin className="w-5 h-5" />
           </a>
           <a
-            href="https://github.com"
+            href="https://github.com/mahidhuwaviya"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-full min-h-[48px] min-w-[48px] flex items-center justify-center text-[#87C9C1]/60 hover:text-[#87C9C1] active:scale-95 active:bg-white/5 transition-all touch-manipulation"
@@ -425,13 +425,13 @@ export default function Home() {
 
         {/* Social Links - Bottom */}
         <div className="flex justify-center items-center gap-10 pb-4 border-t border-[#87C9C1]/10 pt-12 w-full max-w-xs">
-          <a href="mailto:contact@example.com" className="group">
+          <a href="mailto:mahi.dhuwaviya.04@gmail.com" className="group">
             <Mail className="w-5 h-5 text-[#87C9C1]/40 group-hover:text-[#C493BC] transition-all transform group-hover:-translate-y-1" />
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="group">
+          <a href="https://www.linkedin.com/in/mahi-jain-b372022a6/" target="_blank" rel="noopener noreferrer" className="group">
             <Linkedin className="w-5 h-5 text-[#87C9C1]/40 group-hover:text-[#C493BC] transition-all transform group-hover:-translate-y-1" />
           </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="group">
+          <a href="https://github.com/mahidhuwaviya" target="_blank" rel="noopener noreferrer" className="group">
             <Github className="w-5 h-5 text-[#87C9C1]/40 group-hover:text-[#C493BC] transition-all transform group-hover:-translate-y-1" />
           </a>
         </div>
