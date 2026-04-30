@@ -171,7 +171,7 @@ export default function Home() {
                 ↗ tap image to visit project
               </p>
               <a
-                href="https://health-tracker-app-frontend.vercel.app/"
+                href="https://github.com/mahidhuwaviya/HealthTrackerApp-Backend.git"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group block h-44 md:h-96 bg-[#1C3342]/10 rounded-2xl mb-5 md:mb-8 border border-[#87C9C1]/5 overflow-hidden relative cursor-pointer"
@@ -186,8 +186,10 @@ export default function Home() {
                     Open Live Site ↗
                   </span>
                 </div>
+
               </a>
-              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Health Tracker App <span className="text-sm font-normal text-[#87C9C1]/50">(Live)</span></h3>
+              <h3 className="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-[#87C9C1]">Health Tracker App </h3>
+              <span className="text-sm font-normal text-[#87C9C1]/50"><a href="https://health-tracker-app-frontend.vercel.app/"> (Live)</a></span>
               <p className="text-[#87C9C1]/70 text-base md:text-lg mb-5 md:mb-8 leading-relaxed">
                 A comprehensive wellness platform designed to bridge the gap between nutrition and activity tracking.
                 Integrated a third-party nutrition API to provide real-time data for meal logging, built dynamic workout tracking, and created a localized water intake monitor.
@@ -292,6 +294,21 @@ export default function Home() {
         <section id="experience" className="min-h-[60vh] pb-16 md:pb-32">
           <h2 className="text-[2rem] md:text-[4rem] font-bold mb-8 md:mb-12 text-[#87C9C1]">Experience</h2>
           <div className="space-y-10 md:space-y-16">
+
+
+            <div className="group relative pl-6 md:pl-8 border-l-2 border-[#1C3342] hover:border-[#87C9C1] transition-all duration-500">
+              <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
+              <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2"> Java Intern</h3>
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">
+                YPSILON IT SOLUTIONS PRIVATE LIMITED • Oct 2025 – Nov 2025
+              </p>
+              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">Focus: Java & Spring Framework • Indore</p>
+              <p className="text-[#87C9C1]/70 leading-relaxed text-sm md:text-base max-w-xl">
+                Architected backend services for the "Health Tracker" application using Spring Boot and J2EE, ensuring secure data handling.
+                Optimized MySQL database performance by implementing efficient indexing, resulting in faster data retrieval for health statistics.
+              </p>
+            </div>
+
             <div className="group relative pl-6 md:pl-8 border-l-2 border-white/10 hover:border-[#87C9C1] transition-all duration-500">
               <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
               <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2">Full Stack Web Development Intern</h3>
@@ -305,19 +322,6 @@ export default function Home() {
                 to ensure data protection and application scalability.
               </p>
             </div>
-
-            <div className="group relative pl-6 md:pl-8 border-l-2 border-[#1C3342] hover:border-[#87C9C1] transition-all duration-500">
-              <div className="absolute -left-2 top-0 w-4 h-4 rounded-full bg-[#1C3342] group-hover:bg-[#87C9C1] transition-all" />
-              <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2">Aspiring Java Backend Intern</h3>
-              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">
-                YPSILON IT SOLUTIONS PRIVATE LIMITED • Jun 2025 – Jan 2025
-              </p>
-              <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">Focus: Java & Spring Framework • Indore</p>
-              <p className="text-[#87C9C1]/70 leading-relaxed text-sm md:text-base max-w-xl">
-                Actively seeking a 6-month professional internship to apply expertise in Java backend development.
-                Dedicated to building scalable enterprise solutions and mastering the Spring ecosystem within a production environment.
-              </p>
-            </div>
           </div>
         </section>
 
@@ -328,7 +332,7 @@ export default function Home() {
             <div className="group p-5 md:p-8 rounded-3xl border border-white/5 bg-black/40 backdrop-blur-md hover:border-[#87C9C1]/30 active:scale-[0.99] transition-all duration-500">
               <h3 className="text-xl md:text-2xl font-bold text-[#87C9C1] mb-2">Bachelor of Computer Application</h3>
               <p className="text-[#87C9C1]/40 mb-3 nav-item uppercase tracking-widest text-xs md:text-sm">
-                Computer Science • 2023 – 2026 (Present) • CGPA: 8.39/10
+                Computer Science • 2023 – 2026 (Present) • CGPA: 8.34/10
               </p>
               <p className="text-[#87C9C1]/70 leading-relaxed text-sm md:text-base">
                 Amity University Online
